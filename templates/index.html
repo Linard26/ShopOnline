@@ -22,25 +22,21 @@
               <h4 class="my-0 fw-normal">{{el.title}}</h4>
             </div>
             <div class="card-body">
-              <h1 class="card-title pricing-card-title">{{el.price}}<small class="text-body-secondary fw-light"> BYN</small></h1>
+              <h1 class="card-title pricing-card-title">{{el.price}}<small class="text-body-secondary fw-light"> RUB</small></h1>
               <ul class="list-unstyled mt-3 mb-4">
                 <li>{{el.about}}</li>
+                <form action="/payment" method="POST">
+                  <button type="submit" class="w-100 btn btn-lg btn-outline-primary" value="{{el.id}}">Купить товар</button>
+                </form>
 
               </ul>
             </div>
           </div>
+          </div>
         </div>
-
-
-
       </main>
-
       {% endfor %}
-
     </div>
-
-
-
 
 {% endblock %}
 
