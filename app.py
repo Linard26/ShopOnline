@@ -47,34 +47,27 @@ def create():
         return render_template('create.html')
 
 
-
-
-api = Api(merchant_id=1396424,
-          secret_key='test')
-checkout = Checkout(api=api)
-
-
 @app.route('/payment', methods=['POST'])
 def payment():
 
-    item_id = request.form.get('el.id')
-    if 'el.id' not in request.form:
-        return 'Не передан el.id'
+    api = Api(merchant_id=1396424,
+              secret_key='test')
+    checkout = Checkout(api=api)
 
+
+    item_id = request.form.get('el.id')
     item = Item.query.get(item_id)
 
-    payment_data = {
+    data = {
         'amount': item.price,
-        'currency': 'RUB',
-        'description': item.title,
-        'product_id': item.id
+        'currency': 'USD',
+
     }
     try:
-        url = checkout.url(payment_data).get('checkout_url')
+        url = checkout.url(data).get('checkout_url')
         return redirect(url)
     except Exception as e:
         return 'Ошибка при создании ссылки на платежную страницу: {}'.format(str(e))
-
 
 
 if __name__=='__main__':
